@@ -1,0 +1,82 @@
+.title{
+    color: white;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.description{
+    font-family: monospace; 
+    font-weight: 600;
+    color: rgb(196, 196, 196);
+}
+/*------------------navbar------------------------*/
+.navbar-dark .navbar-nav .nav-link{
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+.navbar-dark .navbar-nav .nav-link-register{
+    background-color: #E25151;
+    border-radius: 20px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    background-color: rgb(221, 221, 221);
+    color: black;
+}
+.navbar-dark .navbar-nav .nav-link-register:hover{
+    background-color: #ffffff;
+    color: #b63232;
+}
+.navbar-dark .navbar-nav {
+    color: white;
+    
+}
+
+.list-group .active{
+    background-color: #b63232;
+    border: #b63232;
+}
+
+.w-30{
+    width: 30%;
+}
+
+.bg-black{
+    background-color: rgb(16, 16, 16);
+}
+/*-------------------form------------------------*/
+
+.form-control{
+    height: 50px;
+}
+
+/*-------------------form------------------------*/
+
+.btn-red{
+    background-color: #E25151;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    transition: background-color 300ms ease-in-out;
+}
+
+.btn-red:hover{
+    background-color: #c03333;
+    color: white;
+}
+
+.link-login{
+    width: fit-content;
+    margin: auto;
+}
+.link-home{
+    font-weight: 600;
+    color: black;
+}
+.link-home:hover{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+

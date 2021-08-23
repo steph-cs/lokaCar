@@ -1,0 +1,12 @@
+.content{
+    background-color: black;
+}
+
+.page-item.active .page-link{
+    background-color: rgb(226 81 81);
+    border-color: rgb(226 81 81);
+}
+
+.c-form{
+    width: 40%;
+}
