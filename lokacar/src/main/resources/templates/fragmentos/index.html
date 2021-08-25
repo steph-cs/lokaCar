@@ -20,11 +20,14 @@
                     <li class="nav-item ">
                         <a class="nav-link nav-l" th:href="@{/}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{login}">Login</a>
+                    <li class="nav-item ">
+                        <a class="nav-link nav-l" th:href="@{/posts}">Anúncios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-register" th:href="@{cadastro}">Cadastre-se</a>
+                        <a class="nav-link" th:href="@{/usuario/login}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-register" th:href="@{/usuario/cadastro}">Cadastre-se</a>
                     </li>
                 </ul>
             </div>
@@ -45,11 +48,16 @@
                     <li class="nav-item ">
                         <a class="nav-link nav-l" th:href="@{/}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{perfil}">Perfil</a>
+                    <li class="nav-item ">
+                        <a class="nav-link nav-l" th:href="@{/posts}">Anúncios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-register px-5" href="#" >Sair</a>
+                        <a class="nav-link" th:href="@{/usuario/perfil/{id}(id=${session.usuarioLogado.id})}" >Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="/usuario/logout" method="post" class="w-100">
+                            <button type="submit" class="btn btn-red w-100">Sair</button>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -64,5 +72,37 @@
     <select th:fragment="Tipo" class="form-control" name="tipo" id="tipo" >
         <option th:each="tipo : ${T(com.web.lokacar.enums.Tipo).values()}" th:value="${tipo}" th:text="${tipo}"></option>
     </select>
+
+
+
+    <main th:fragment="Erro"  class=" main d-flex flex-wrap justify-content-center align-items-center" style="height: 90vh;">
+        <div>
+           <img style="width: 50vh;" src="/img/notFound.png" alt="">
+        </div>
+        <div>
+           <h1>Página não encontrada!</h1>
+           <p>Efetue <a th:href="@{/usuario/login}">login</a>.</p>
+        </div>
+    </main>
+
+
+    <div th:fragment="toast-success" class="toast toast-success" data-autohide="false">
+        <div class="toast-header">
+          <strong class="mr-auto ">Sucesso!</strong>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+          Sua reserva foi realizada!
+        </div>
+    </div>
+    <div th:fragment="toast-erro" class="toast toast-erro" data-autohide="false">
+        <div class="toast-header">
+          <strong class="mr-auto ">Erro!</strong>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+          Não foi possível efetuar a reserva!
+        </div>
+    </div>
 </body>
 </html>

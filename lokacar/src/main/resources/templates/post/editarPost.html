@@ -22,7 +22,8 @@
         
         <div class="container mt-3">
             <h2 class="d-flex justify-content-center mt-3">Adicionar Anúncio</h2>
-            <form th:action="@{/usuario/addPost/{id}(id=${session.usuarioLogado.id})}" method="POST" th:object="${post}" class="mt-5">
+            <form th:action="@{/usuario/editarPost/{id}(id=${session.usuarioLogado.id})}" method="POST" th:object="${post}" class="mt-5">
+                <input type="text" hidden th:field="*{id}">
                 <div class="row">
                     <div class="frame col-4">
                         <div class="center">
@@ -65,15 +66,22 @@
                         </div>
                         <div class="">
                             <label for="localizacao">Localização:</label>
-                            <div th:replace="fragmentos/index :: Localizacao" th:field="*{localizacao}"></div>
+                            <select th:fragment="Localizacao" class="form-control" name="localizacao" id="localizacao" >
+                                <option th:each="localizacao : ${T(com.web.lokacar.enums.Localizacao).values()}" th:value="${localizacao}" th:text="${localizacao.getCapital()} + ' - ' +${localizacao.getSigla()}" th:selected="${localizacao.getSigla == post.localizacao.getSigla}"></option>
+                            </select>
                         </div>
                         <div class="">
                             <label for="tipo">Tipo:</label>
-                            <div th:replace="fragmentos/index :: Tipo" th:field="*{tipo}"></div>
+                            <select th:fragment="Tipo" class="form-control" name="tipo" id="tipo" >
+                                <option th:each="tipo : ${T(com.web.lokacar.enums.Tipo).values()}" th:value="${tipo}" th:text="${tipo}" th:selected="${tipo == post.tipo}"></option>
+                            </select>
                         </div>
+                        
+                    
+                        
                     </div>
                 </div>
-                <button type="submit" class="btn btn-red w-50 mt-5 col-6 offset-3">ANUNCIAR</button>
+                <button type="submit" class="btn btn-red w-50 mt-5 col-6 offset-3">ALTERAR</button>
             </form>            
         </div>
     </main>

@@ -6,18 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/addPost.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/addPost.css">
     
 </head>
-<body>
-    <div th:replace="fragmentos/index :: Header-1"></div>
+<body >
+    <div th:if="${session.usuarioLogado}">
+        <div  th:replace="fragmentos/index :: headerLogado"></div>
+    </div>
+    <div th:if="!${session.usuarioLogado}">
+        <div  th:replace="fragmentos/index :: Header-1"></div>
+    </div>
     
     <main class="mx-auto my-3">
         
         <div class="container mt-3">
             <h2 class="d-flex justify-content-center mt-3">Adicionar Anúncio</h2>
-            <form method="POST" th:object="${post}" class="mt-5">
+            <form th:action="@{/usuario/addPost/{id}(id=${session.usuarioLogado.id})}" method="POST" th:object="${post}" class="mt-5">
                 <div class="row">
                     <div class="frame col-4">
                         <div class="center">
@@ -72,6 +77,10 @@
             </form>            
         </div>
     </main>
+
+    <div th:if="!${session.usuarioLogado}">
+        <div  th:replace="fragmentos/index :: Erro"></div>
+    </div>
 
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>

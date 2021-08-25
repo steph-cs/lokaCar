@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head> 
+<body>
+    <div class="bg-top"></div>
+    <div class="mt-2 ml-3" style="position: absolute;">
+        <a th:href="@{/}"><button class="btn btn-dark">VOLTAR</button></a>
+    </div>
+    <main class="mx-auto my-3">
+        <figure class="m-auto" style="width: 120px;"><img src="/img/LokaCar.png" alt="" style="width: 100%;"></figure>
+        <div class="container mt-3">
+            <h2 class="d-flex justify-content-center">Cadastre-se na LokaCar</h2>
+            <div class="alert alert-danger mt-3" th:if="${msg}">
+                <strong th:text="${msg}"></strong>
+            </div>
+            <form action="cadastro" method="POST" class="" th:object="${usuario}">
+                
+                <div class=" mt-3">
+                    <div class="row">
+                        <div style="width: 50%;">
+                            <div  class="alert alert-danger mt-3" th:if="${#fields.hasErrors('nome')}">
+                                <label for="nome" th:errors= *{nome} ></label>
+                            </div>
+                        </div>
+                        <div style="width: 50%;">
+                            <div  class="alert alert-danger mt-3" th:if="${#fields.hasErrors('sobrenome')}">
+                                <label for="sobrenome" th:errors= *{sobrenome}></label>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="row">
+                        <div class="col ">
+                            <label for="f-name">Nome (obrigatório)</label>
+                            <input class="form-control" type="text" name="f-name" placeholder="Nome" th:field="*{nome}">
+                        </div>
+                        <div class="col">
+                            <label for="l-name">Sobrenome (obrigatório)</label>
+                            <input class="form-control" type="text" name="l-name" placeholder="Sobrenome" th:field="*{sobrenome}">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class=" mt-3">
+                    <label for="localizacao">Localização:</label>
+                    <div th:replace="fragmentos/index :: Localizacao" th:field="*{localizacao}"></div>
+                </div>
+                <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('email')}">
+                    <label for="email" th:errors= *{email}></label>
+                </div>
+                <div class="mt-3">
+                    <label for="email">Email (obrigatório)</label>
+                    <input class="form-control" type="text" name="email" placeholder="Email" th:field="*{email}">
+                </div>
+                <div class="alert alert-danger mt-3" th:if="${#fields.hasErrors('senha')}">
+                    <label for="senha" th:errors= *{senha}></label>
+                </div>
+                <div class="mt-3">
+                    <label for="pwd">Senha (obrigatório)</label>
+                    <input class="form-control" type="password" name="pwd" placeholder="Senha" th:field="*{senha}"> 
+                </div>
+                
+                <button type="submit" class="btn btn-red w-50 mt-5 col-6 offset-3">CADASTRE-SE</button>
+            </form>
+            <div class="mt-3 link-login">
+                <a th:href="@{/usuario/login}">Já é cadastrado?</a>
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
