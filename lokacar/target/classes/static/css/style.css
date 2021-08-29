@@ -111,6 +111,8 @@
 
 .toast{
     position: absolute;
+    z-index: 100;
+    left: 5px;
 }
 .toast-success .toast-header{
     color: #545454;
@@ -154,3 +156,4 @@
     color: whitesmoke;
     border: 1px whitesmoke solid;
 }
+

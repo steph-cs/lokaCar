@@ -1,4 +1,9 @@
 package com.web.lokacar.controller;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +21,7 @@ import com.web.lokacar.service.ServicePost;
 import com.web.lokacar.service.ServiceUsuario;
 import com.web.lokacar.util.Util;
 
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
@@ -27,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @RestController
@@ -43,6 +50,8 @@ public class UsuarioController {
 
    @Autowired
    private ServicePost servicePost;
+
+   private static String path = "src/main/resources/static/banco-img/";
 
 
    //-------------login----------------//
@@ -147,14 +156,19 @@ public class UsuarioController {
          @RequestParam(
             value = "size",
             required = false,
-            defaultValue = "4") int size) {
+            defaultValue = "4") int size,
+         @RequestParam(
+            value = "msg",
+            required = false) String msg){
       ModelAndView mv = new ModelAndView();
       Usuario usuario = usuarioRepository.getById(id);
    
       Page<Post> posts = servicePost.findByUsuario(usuario, page, size);
       mv.addObject("posts", posts);
       mv.setViewName("usuario/perfilPosts");
-
+      if(msg != null){
+         mv.addObject("msg", msg);
+      }
       int totalPages = posts.getTotalPages();
       if (totalPages > 0) {
          List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -207,15 +221,28 @@ public class UsuarioController {
          @PathVariable("id") Integer id,
          @Valid Post post,
          BindingResult br,
-         @RequestParam("file") MultipartFile file){
+         @RequestParam(value = "file", required = false) MultipartFile file){
       ModelAndView mv = new ModelAndView();
       if(br.hasErrors()){
          mv.setViewName("post/addPost");
       }else{
          Usuario usuario = usuarioRepository.getById(id);
          post.setUsuario(usuario);
+         mv.setViewName("redirect:/usuario/perfilPosts/"+id);
          postRepository.save(post);
-         mv.setViewName("redirect:/usuario/perfilPosts/{id}");
+         try {
+            if(!file.isEmpty()){
+               byte[] bytes = file.getBytes();
+               Path caminho = Paths.get(path+post.getId()+file.getOriginalFilename());
+               Files.write(caminho, bytes);
+
+               post.setNomeImagem(post.getId()+file.getOriginalFilename());
+               postRepository.save(post);
+            }
+         } catch (IOException e) {
+            
+         }
+         
       }
       return mv ;
    }
@@ -229,7 +256,12 @@ public class UsuarioController {
    }
 
    @PostMapping("/editarPost/{id}")
-   public ModelAndView alterarPost(@PathVariable("id") Integer id,@Valid Post post,BindingResult br){
+   public ModelAndView alterarPost(
+         @PathVariable("id") Integer id,
+         @Valid Post post,
+         BindingResult br, 
+         @RequestParam(value = "file", required = false) MultipartFile file,
+         RedirectAttributes redirectAttributes) throws IOException{
       ModelAndView mv = new ModelAndView();
       if(br.hasErrors()){
          return editarPost(post.getId());
@@ -238,13 +270,34 @@ public class UsuarioController {
          post.setUsuario(usuario);
          postRepository.save(post);
          mv.setViewName("redirect:/usuario/perfilPosts/{id}");
+         
+         if(!file.isEmpty()){
+            if(file.getContentType() == "image/png" || file.getContentType() == "image/jpeg"){
+               byte[] bytes = file.getBytes();
+               Path caminho = Paths.get(path+post.getId()+file.getOriginalFilename());
+               Files.write(caminho, bytes);
+               post.setNomeImagem(post.getId()+file.getOriginalFilename());
+               postRepository.save(post);
+            }
+            redirectAttributes.addAttribute("msg","erro-img");
+         }
+         
       }
       return mv ;
    }
 
    @PostMapping("/excluirPost/{id}")
-   public ModelAndView excluirPost( @PathVariable("id") Integer id) {
+   public ModelAndView excluirPost( @PathVariable("id") Integer id){
       Post post =  postRepository.getById(id);
+      Path caminho = Paths.get(path+post.getNomeImagem());
+      try{
+         Files.delete(caminho);
+      }catch(NoSuchFileException ex){
+         System.out.println(ex);
+      }catch (IOException ex) {
+         System.out.println(ex);
+      }
+      
       Usuario usuario =  post.getUsuario();
       postRepository.deleteById(id);
       ModelAndView mv = new ModelAndView();

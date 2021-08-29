@@ -30,6 +30,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private String nomeImagem;
     private String descricao;
 
     @NotBlank(message = "Campo obrigatório!")
