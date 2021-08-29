@@ -80,3 +80,77 @@
     color: rgb(0, 0, 0);
 }
 
+.btn-black{
+    background-color: #000000;
+    border: 2px solid #000000;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    transition: background-color 300ms ease-in-out;
+}
+
+.btn-black:hover{
+    border: 2px solid #000000;
+    background-color: #faf9f9;
+    color: rgb(22, 22, 22);
+}
+
+.btn-del{
+    background-color: #b63232;
+    border: 2px solid #b63232;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    transition: background-color 300ms ease-in-out;
+}
+
+.btn-del:hover{
+    border: 2px solid #b63232;
+    background-color: #faf9f9;
+    color: rgb(22, 22, 22);
+}
+/*-------------------toast-----------------------*/
+
+.toast{
+    position: absolute;
+}
+.toast-success .toast-header{
+    color: #545454;
+    background-color: rgb(209 255 229 / 85%);
+}
+
+.toast-success .toast-body{
+    background-color: rgb(115, 204, 120);
+    color: #292929;
+}
+
+.toast-erro .toast-header{
+    color: #545454;
+    background-color: rgba(235, 108, 108, 0.85);
+}
+
+.toast-erro .toast-body{
+    background-color: rgb(204, 115, 115);
+    color: #292929;
+}
+
+/*-------------------pagination-----------------------*/
+
+.pagination .page-item .page-link{
+    background-color: #000000;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+}
+.pagination .page-item .page-link:hover{
+    background-color: #ffffff;
+    color: rgb(19, 19, 19);
+    border: 1px rgb(0, 0, 0) solid;
+}
+.pagination .active .page-link{
+    background-color: #b63232;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+}
+.pagination .active .page-link:hover{
+    background-color: #b63232;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+}

@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -43,4 +44,10 @@ public class Post {
 
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
+
+    @OneToOne
+    private Usuario usuario;
+
+    @OneToOne
+    private Usuario usuarioReservado;
 }
