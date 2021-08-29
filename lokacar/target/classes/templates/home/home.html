@@ -11,10 +11,10 @@
 </head>
 <body>
 
-    <div th:if="${session.usuarioLogado}">
+    <div th:if="${session.usuarioLogado}" class="sticky-top">
         <div  th:replace="fragmentos/index :: headerLogado"></div>
     </div>
-    <div th:if="!${session.usuarioLogado}">
+    <div th:if="!${session.usuarioLogado}" class="sticky-top">
         <div  th:replace="fragmentos/index :: Header-1"></div>
     </div>
     

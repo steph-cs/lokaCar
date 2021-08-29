@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <header class="sticky-top" th:fragment="Header-1"> 
+    <header th:fragment="Header-1"> 
         <nav class="navbar navbar-expand-lg  bg-black navbar-dark  ">
             <a class="ml-2" th:href="@{/}">
                 <img style="width: 90px;" src="/img/LokaCar-png-2.png" alt="">
@@ -34,7 +34,7 @@
         </nav>
     </header>
 
-    <header class="sticky-top" th:fragment="headerLogado"> 
+    <header  th:fragment="headerLogado"> 
         <nav class="navbar navbar-expand-lg  bg-black navbar-dark  ">
             <a class="ml-2" th:href="@{/}">
                 <img style="width: 90px;" src="/img/LokaCar-png-2.png" alt="">
@@ -84,9 +84,21 @@
            <p>Efetue <a th:href="@{/usuario/login}">login</a>.</p>
         </div>
     </main>
+    <main th:fragment="Erro-home"  class=" main d-flex flex-wrap justify-content-center align-items-center" style="height: 90vh;">
+        <div>
+           <img style="width: 50vh;" src="/img/notFound.png" alt="">
+        </div>
+        <div>
+           <h1>Página não encontrada!</h1>
+           <a th:href="@{/}">Home</a>
+        </div>
+    </main>
 
+    <div th:fragment="Empty">
+        <h1>Nenhum veículo encontrado!</h1>
+    </div>
 
-    <div th:fragment="toast-success" class="toast toast-success" data-autohide="false">
+    <div th:fragment="toast-success" class="toast toast-success" data-autohide="true" data-delay="3000">
         <div class="toast-header">
           <strong class="mr-auto ">Sucesso!</strong>
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -95,13 +107,22 @@
           Sua reserva foi realizada!
         </div>
     </div>
-    <div th:fragment="toast-erro" class="toast toast-erro" data-autohide="false">
+    <div th:fragment="toast-erro" class="toast toast-erro" data-autohide="true" data-delay="3000">
         <div class="toast-header">
           <strong class="mr-auto ">Erro!</strong>
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
         </div>
         <div class="toast-body">
           Não foi possível efetuar a reserva!
+        </div>
+    </div>
+    <div th:fragment="toast-erro-img" class="toast toast-erro" data-autohide="true" data-delay="3000">
+        <div class="toast-header">
+          <strong class="mr-auto ">Erro!</strong>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+          Não foi possível carregar a imagem!
         </div>
     </div>
 </body>

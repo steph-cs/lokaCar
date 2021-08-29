@@ -16,7 +16,9 @@
     <div th:if="!${session.usuarioLogado}">
         <div  th:replace="fragmentos/index :: Header-1"></div>
     </div>
-    
+    <div th:if="${msg}">
+        <div  th:replace="fragmentos/index :: toast-erro-img"></div>
+    </div>
     <main  th:if="${session.usuarioLogado}" class="d-flex">
         
         <div class="border-end bg-white w-25 mt-5 mr-3" >
@@ -35,7 +37,13 @@
             
             <section class="container d-flex justify-content-around flex-wrap">
                 <div class="card border border-dark rounded mt-3" style="width:300px" th:each="post : ${posts}">
-                    <img class="card-img-top" src="/img/fiatUno.png" alt="">
+                    <div th:if="${post.nomeImagem == null}">
+                        <img class="card-img-top" style="width: 100%;height:15rem" src="/img/no-image.png"  th:alt="${post.getModelo}+'-'+${post.getId}">
+                    </div>
+                    <div th:if="${post.nomeImagem != null}">
+                        <img  class="card-img-top" style="width: 100%;height:15rem" 
+                    th:src="@{/posts/mostrarImagem/{imagem}(imagem=${post.nomeImagem})}"  th:alt="${post.getModelo}+'-'+${post.getId}">
+                    </div>
                     <div class="card-body">
                         <h4 class="card-title" th:text="${post.modelo}"></h4>
                         <div class="row mb-3">
@@ -121,5 +129,10 @@
     
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('.toast').toast('show');
+        });
+    </script>
 </body>
 </html>

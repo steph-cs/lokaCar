@@ -11,34 +11,23 @@
     
 </head>
 <body >
-    <div th:if="${session.usuarioLogado}">
+    <div th:if="${session.usuarioLogado}" class="sticky-top">
         <div  th:replace="fragmentos/index :: headerLogado"></div>
     </div>
-    <div th:if="!${session.usuarioLogado}">
+    <div th:if="!${session.usuarioLogado}" class="sticky-top">
         <div  th:replace="fragmentos/index :: Header-1"></div>
     </div>
     
-    <main class="mx-auto my-3">
+    <main th:if="${session.usuarioLogado}" class="mx-auto my-3">
         
         <div class="container mt-3">
             <h2 class="d-flex justify-content-center mt-3">Adicionar Anúncio</h2>
-            <form th:action="@{/usuario/editarPost/{id}(id=${session.usuarioLogado.id})}" method="POST" th:object="${post}" class="mt-5">
+            <form th:action="@{/usuario/editarPost/{id}(id=${session.usuarioLogado.id})}" method="POST" th:object="${post}" enctype="multipart/form-data" class="mt-5">
                 <input type="text" hidden th:field="*{id}">
+                <input type="text" hidden th:field="*{nomeImagem}">
                 <div class="row">
                     <div class="frame col-4">
-                        <div class="center">
-                            <div class="title">
-                                <h1>Drop file to upload</h1>
-                            </div>
-                    
-                            <div class="dropzone">
-                                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
-                                <input type="file" class="upload-input" />
-                            </div>
-                    
-                            <button type="button" class="btn" name="uploadbutton">Upload file</button>
-                    
-                        </div>
+                        <input type="file" name="file" >
                     </div>
                     <div class="ml-5 col">
                         <div class="row">

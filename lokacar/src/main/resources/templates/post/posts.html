@@ -22,6 +22,9 @@
     <div th:if="${msg} and ${msg} == 'erro'">
         <div  th:replace="fragmentos/index :: toast-erro"></div>
     </div>
+    <div th:if="${msg} and ${msg} == 'erro-img'">
+        <div  th:replace="fragmentos/index :: toast-erro-img"></div>
+    </div>
     <main>
 
         <div class=" py-5 mb-5 d-flex flex-column align-items-center justify-content-center content" >
@@ -49,7 +52,14 @@
         </div>
         <section class="container d-flex justify-content-around flex-wrap">
             <div  class="card mt-3 border border-dark rounded" style="width:300px" th:each="post : ${posts}">
-                <img class="card-img-top" src="/img/fiatUno.png"  alt="">
+                <div th:if="${post.nomeImagem == null}">
+                    <img class="card-img-top" style="width: 100%;height:15rem" src="/img/no-image.png"  th:alt="${post.getModelo}+'-'+${post.getId}">
+                </div>
+                <div th:if="${post.nomeImagem != null}">
+                    <img  class="card-img-top" style="width: 100%;height:15rem" 
+                th:src="@{/posts/mostrarImagem/{imagem}(imagem=${post.nomeImagem})}"  th:alt="${post.getModelo}+'-'+${post.getId}">
+                </div>
+                
                 <div class="card-body">
                     <h4 class="card-title" th:text="${post.modelo}"></h4>
                     <h6 th:text="'Anunciante: '+${post.getUsuario.nome}+' '+${post.getUsuario.sobrenome}"></h6>
@@ -96,6 +106,10 @@
                         
                     </div>
                 </div>
+            </div>
+
+            <div th:if="${posts.isEmpty()}">
+                <div  th:replace="fragmentos/index :: Empty"></div>
             </div>
             
         </section>
