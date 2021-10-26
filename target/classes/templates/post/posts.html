@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/posts.css">
+</head>
+<body>
+    <div th:if="${session.usuarioLogado}" class="sticky-top">
+        <div  th:replace="fragmentos/index :: headerLogado"></div>
+    </div>
+    <div th:if="!${session.usuarioLogado}" class="sticky-top">
+        <div  th:replace="fragmentos/index :: Header-1"></div>
+    </div>
+    <div th:if="${msg} and ${msg} == 'success'">
+        <div  th:replace="fragmentos/index :: toast-success"></div>
+    </div>
+    <div th:if="${msg} and ${msg} == 'erro'">
+        <div  th:replace="fragmentos/index :: toast-erro"></div>
+    </div>
+    <div th:if="${msg} and ${msg} == 'erro-img'">
+        <div  th:replace="fragmentos/index :: toast-erro-img"></div>
+    </div>
+    <main>
+
+        <div class=" py-5 mb-5 d-flex flex-column align-items-center justify-content-center content" >
+            <h2 class="title">LokaCar</h2>
+            <div class="description" >
+                <p class="d-flex justify-content-center">PRECISANDO DE UM CARRO? MOTO?</p>
+                <p>ENCONTRE AGORA O AUTOMÓVEL MAIS PRÓXIMO DE VOCÊ.</p>
+            </div>
+            
+        </div>
+        <div class="w mb-5 mx-auto" >
+            <form action="/posts/buscar" method="GET" class="form form-busca">
+                <div class="c-form">
+                    <label for="localizacao">Localização:</label>
+                    <div th:replace="fragmentos/index :: Localizacao"></div>
+                </div>
+                <div class="c-form">
+                    <label for="tipo">Tipo:</label>
+                    <div th:replace="fragmentos/index :: Tipo"></div>
+                </div>
+                <div class=" d-flex flex-column justify-content-center mt-3">
+                    <button type="submit" class="btn btn-dark" style="width: fit-content; font-size: 1.1rem;">Buscar</button>
+                </div>    
+            </form>
+        </div>
+        <section class="container d-flex justify-content-around flex-wrap">
+            <div  class="card mt-3 border border-dark rounded" style="width:300px" th:each="post : ${posts}">
+                <div th:if="${post.nomeImagem == null or #strings.isEmpty(post.nomeImagem)}">
+                    <img class="card-img-top" style="width: 100%;height:15rem" src="/img/no-image.png"  th:alt="${post.getModelo}+'-'+${post.getId}">
+                </div>
+                <div th:if="${post.nomeImagem != null and !#strings.isEmpty(post.nomeImagem)}">
+                    <img  class="card-img-top" style="width: 100%;height:15rem" 
+                th:src="@{/posts/mostrarImagem/{imagem}(imagem=${post.nomeImagem})}"  th:alt="${post.getModelo}+'-'+${post.getId}">
+                </div>
+                
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${post.modelo}"></h4>
+                    <h6 th:text="'Anunciante: '+${post.getUsuario.nome}+' '+${post.getUsuario.sobrenome}"></h6>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <p class="card-text" th:text="${post.preco}+',00 / diária'"></p>
+                            <p class="card-text" th:text="${post.localizacao.getCapital}+' - '+${post.localizacao.getSigla}"></p>
+                        </div>
+                        <div class="col">
+                            <p class="card-text" th:text="${post.tipo}"></p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-danger" data-toggle="modal" th:data-target="'#modal'+${post.id}">Alugar</button>
+                </div>
+            </div>
+            <!-- The Modal -->
+            <div class="modal" th:each="post : ${posts}" th:id="'modal'+${post.id}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                        <h4 class="modal-title">Alugar</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                        Deseja mesmo Alugar este veiculo?
+                        </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <form th:if="${session.usuarioLogado}" th:action="'/usuario/alugarPost/'+${post.id}+'/'+${session.usuarioLogado.id}" method="POST">
+                                <button type="submit" class="btn btn-danger" name="btn-deletar">Alugar</button>
+                            </form>
+                            <div th:if="!${session.usuarioLogado}"  >
+                                <a th:href="@{/usuario/login}" type="submit" class="btn btn-danger" name="btn-deletar">Alugar</a>
+                            </div>
+                            
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${posts.isEmpty()}">
+                <div  th:replace="fragmentos/index :: Empty"></div>
+            </div>
+            
+        </section>
+        <div class="mt-3" th:if="${posts.totalPages > 0}">
+            <ul class="pagination justify-content-center">
+                <li
+                th:each="pageNumber : ${pageNumbers}"  th:if="${pageNumber}&lt;=5"
+                class="page-item" 
+                th:classappend="${pageNumber==posts.number + 1} ? active">
+                    <a class="page-link" 
+                    th:href="@{/posts/(page=${pageNumber-1})}"
+                    th:text=${pageNumber}></a>
+                </li>
+                <li
+                th:if="${#lists.size(pageNumbers)}&gt;=5"
+                class="page-item" 
+                >
+                <a class="page-link disable" 
+                    >...</a>
+                </li>
+                <li
+                th:if="${#lists.size(pageNumbers)}&gt;=5"
+                class="page-item" 
+                th:classappend="${#lists.size(pageNumbers)==posts.number + 1} ? active">
+                    <a class="page-link" 
+                    th:href="@{/posts/(page=${#lists.size(pageNumbers)-1})}"
+                    th:text=${#lists.size(pageNumbers)}></a>
+                </li>
+            </ul>
+        </div>
+    </main>
+    
+
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('.toast').toast('show');
+        });
+    </script>
+</body>
+</html>

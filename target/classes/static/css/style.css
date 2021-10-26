@@ -1,0 +1,182 @@
+.title{
+    color: white;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.description{
+    font-family: monospace; 
+    font-weight: 600;
+    color: rgb(196, 196, 196);
+}
+/*------------------navbar------------------------*/
+.navbar-dark .navbar-nav .nav-link{
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+.navbar-dark .navbar-nav .nav-link-register{
+    background-color: #E25151;
+    border-radius: 20px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    background-color: rgb(221, 221, 221);
+    color: black;
+}
+.navbar-dark .navbar-nav .nav-link-register:hover{
+    background-color: #ffffff;
+    color: #b63232;
+}
+.navbar-dark .navbar-nav {
+    color: white;
+    
+}
+
+.list-group .active{
+    background-color: #b63232;
+    border: #b63232;
+}
+
+.w-30{
+    width: 30%;
+}
+
+.bg-black{
+    background-color: rgb(16, 16, 16);
+}
+/*-------------------form------------------------*/
+
+.form-control{
+    height: 50px;
+}
+
+/*-------------------form------------------------*/
+
+.btn-red{
+    background-color: #E25151;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    transition: background-color 300ms ease-in-out;
+}
+
+.btn-red:hover{
+    background-color: #c03333;
+    color: white;
+}
+
+.link-login{
+    width: fit-content;
+    margin: auto;
+}
+.link-home{
+    font-weight: 600;
+    color: black;
+}
+.link-home:hover{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.btn-black{
+    background-color: #000000;
+    border: 2px solid #000000;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    transition: background-color 300ms ease-in-out;
+}
+
+.btn-black:hover{
+    border: 2px solid #000000;
+    background-color: #faf9f9;
+    color: rgb(22, 22, 22);
+}
+
+.btn-del{
+    background-color: #b63232;
+    border: 2px solid #b63232;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    transition: background-color 300ms ease-in-out;
+}
+
+.btn-del:hover{
+    border: 2px solid #b63232;
+    background-color: #faf9f9;
+    color: rgb(22, 22, 22);
+}
+/*-------------------toast-----------------------*/
+
+.toast{
+    position: absolute;
+    z-index: 100;
+    left: 5px;
+}
+.toast-success .toast-header{
+    color: #545454;
+    background-color: rgb(209 255 229 / 85%);
+}
+
+.toast-success .toast-body{
+    background-color: rgb(115, 204, 120);
+    color: #292929;
+}
+
+.toast-erro .toast-header{
+    color: #545454;
+    background-color: rgba(235, 108, 108, 0.85);
+}
+
+.toast-erro .toast-body{
+    background-color: rgb(204, 115, 115);
+    color: #292929;
+}
+
+/*-------------------pagination-----------------------*/
+
+.pagination .page-item .page-link{
+    background-color: #000000;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+}
+.pagination .page-item .page-link:hover{
+    background-color: #ffffff;
+    color: rgb(19, 19, 19);
+    border: 1px rgb(0, 0, 0) solid;
+}
+.pagination .active .page-link{
+    background-color: #b63232;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+}
+.pagination .active .page-link:hover{
+    background-color: #b63232;
+    color: whitesmoke;
+    border: 1px whitesmoke solid;
+}
+
+/*-------------------mq------------------------*/
+@media screen and (max-width:600px) {
+    .main-perfil{
+        display: block;
+    }
+    
+    .main-perfil .list-perfil{
+        width: 75%;
+        margin: 5vh auto 0 auto;
+    }
+}
+
+@media screen and (min-width:600px){
+    .main-perfil{
+        display: flex;
+    }
+    
+    .main-perfil .list-perfil{
+        width: 25%;
+        margin-top: 5vh;
+        margin-right: 3vh;
+    }
+}

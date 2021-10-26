@@ -1,0 +1,43 @@
+.content{
+    background-color: black;
+}
+
+.c-form{
+    width: 40%;
+}
+
+.form-busca{
+    display: flex ;
+    justify-content: space-around;  
+}
+
+/*-------------------mq------------------------*/
+@media screen and (max-width:600px) {
+    .form-busca{
+        display: block;
+    }
+    .c-form{
+        width: 100%;
+    }
+    .w{
+        width: 95%;
+    }
+    
+}
+@media screen and (min-width:600px) and (max-width:900px) {
+    .c-form{
+        width: 40%;
+    }
+    .w{
+        width: 90%;
+    }
+}
+
+@media screen and (min-width:900px) {
+    .c-form{
+        width: 40%;
+    }
+    .w{
+        width: 75%;
+    }
+}
