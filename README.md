@@ -1,7 +1,8 @@
 # LokaCar
-- sistema web desenvolvido para a disciplina de Programação para Web
-desenvolvido utililizando:
-Frontend:
+<p>Sistema web desenvolvido para a disciplina de Programação para Web.</p>
+<p>Frontend:</p>
+
 - HTML / CSS / Bootstrap
-Backend:
-- Java / SpringBoot / Postgres
+<p>Backend:</p>
+
+- Java / SpringBoot / PostgreSQL
