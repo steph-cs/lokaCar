@@ -1,6 +1,6 @@
 # LokaCar - sistema de locação de veículos
-<p>Sistema web desenvolvido para a disciplina de Programação para Web.</p>
 
+Trabalho da disciplina Programação para Web da Universidade Federal de Santa Catarina (UFSC)
 <p>Frontend:</p>
 
 - HTML / CSS / Bootstrap
