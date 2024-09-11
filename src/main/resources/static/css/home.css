@@ -1,8 +1,13 @@
+body{
+  height: 100dvh;
+}
+
 .main{
     background-image: url(/img/wallpaper-office.png); 
     background-repeat:no-repeat ;
+    background-size: cover;
     width: 100%;
-    height: 92vh;
+    height: 100%;
     color: white;
 }
 
@@ -16,7 +21,7 @@
 .blur-black{
     position: absolute;
     width: 100%;
-    height: 92vh;
+    height: 100dvh;
     z-index: 0;
     background-color: rgba(0, 0, 0, 0.405)
 }
